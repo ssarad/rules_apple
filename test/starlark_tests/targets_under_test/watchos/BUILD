@@ -164,6 +164,17 @@ watchos_extension(
     ],
 )
 
+watchos_extension(
+    name = "ext_minimal_no_infoplist",
+    bundle_id = "com.google.example.ext",
+    minimum_os_version = common.min_os_watchos.baseline,
+    provisioning_profile = "//test/testdata/provisioning:integration_testing_ios.mobileprovision",
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources:watchkit_ext_main_lib",
+    ],
+)
+
 ios_application(
     name = "ios_app_with_watchos_app_with_generic_ext",
     bundle_id = "com.google",
@@ -448,6 +459,27 @@ watchos_framework(
     tags = common.fixture_tags,
     deps = [
         "//test/starlark_tests/resources:objc_shared_lib",
+    ],
+)
+
+watchos_framework(
+    name = "fmwk_minimal_no_infoplist",
+    bundle_id = "com.google.example.framework",
+    minimum_os_version = common.min_os_watchos.baseline,
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources:objc_shared_lib",
+    ],
+)
+
+watchos_dynamic_framework(
+    name = "dynamic_fmwk_minimal_no_infoplist",
+    bundle_id = "com.google.example.framework",
+    bundle_name = "swift_shared_lib",
+    minimum_os_version = common.min_os_watchos.baseline,
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources:swift_shared_lib",
     ],
 )
 

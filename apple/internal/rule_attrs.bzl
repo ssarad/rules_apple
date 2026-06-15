@@ -759,6 +759,7 @@ rule_attrs = struct(
             watchos = ["watch"],
         ),
         test_bundle_infoplist = _test_bundle_infoplist,
+        default_infoplist = _default_infoplist,
         ios_application_infoplist = _default_infoplist,
         macos_application_infoplist = _default_infoplist,
         tvos_application_infoplist = _default_infoplist,

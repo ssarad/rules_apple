@@ -15,6 +15,10 @@
 """watchos_framework Starlark tests."""
 
 load(
+    "//test/starlark_tests/rules:analysis_target_outputs_test.bzl",
+    "analysis_target_tree_artifacts_outputs_test",
+)
+load(
     "//test/starlark_tests/rules:common_verification_tests.bzl",
     "archive_contents_test",
     "binary_contents_test",
@@ -207,6 +211,25 @@ def watchos_framework_test_suite(name):
             "_OBJC_CLASS_$_SharedClass",
         ],
         target_under_test = "//test/starlark_tests/targets_under_test/watchos:ext_with_runtime_framework_using_import_static_lib_dep",
+        tags = [name],
+    )
+
+    # Test that watchos_framework works without explicit infoplists
+    analysis_target_tree_artifacts_outputs_test(
+        name = "{}_no_infoplist_builds_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/watchos:fmwk_minimal_no_infoplist",
+        expected_outputs = ["fmwk_minimal_no_infoplist.framework"],
+        tags = [name],
+    )
+
+    infoplist_contents_test(
+        name = "{}_no_infoplist_has_default_values_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/watchos:fmwk_minimal_no_infoplist",
+        expected_values = {
+            "CFBundleIdentifier": "com.google.example.framework",
+            "CFBundleName": "fmwk_minimal_no_infoplist",
+            "CFBundlePackageType": "FMWK",
+        },
         tags = [name],
     )
 

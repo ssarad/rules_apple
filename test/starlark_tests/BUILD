@@ -54,6 +54,8 @@ load(":tvos_ui_test_tests.bzl", "tvos_ui_test_test_suite")
 load(":tvos_unit_test_tests.bzl", "tvos_unit_test_test_suite")
 load(":visionos_application_tests.bzl", "visionos_application_test_suite")
 load(":visionos_build_test_tests.bzl", "visionos_build_test_test_suite")
+load(":visionos_dynamic_framework_tests.bzl", "visionos_dynamic_framework_test_suite")
+load(":visionos_framework_tests.bzl", "visionos_framework_test_suite")
 load(":watchos_application_swift_tests.bzl", "watchos_application_swift_test_suite")
 load(":watchos_application_tests.bzl", "watchos_application_test_suite")
 load(":watchos_build_test_tests.bzl", "watchos_build_test_test_suite")
@@ -180,6 +182,10 @@ tvos_unit_test_test_suite(name = "tvos_unit_test")
 visionos_build_test_test_suite(name = "visionos_build_test")
 
 visionos_application_test_suite(name = "visionos_application")
+
+visionos_dynamic_framework_test_suite(name = "visionos_dynamic_framework")
+
+visionos_framework_test_suite(name = "visionos_framework")
 
 watchos_build_test_test_suite(name = "watchos_build_test")
 

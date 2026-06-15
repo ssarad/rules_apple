@@ -2954,7 +2954,9 @@ ios_app_clip = rule_factory.create_apple_rule(
             is_mandatory = True,
         ),
         rule_attrs.device_runner_template_attr(),
-        rule_attrs.infoplist_attrs(),
+        rule_attrs.infoplist_attrs(
+            default_infoplist = rule_attrs.defaults.default_infoplist,
+        ),
         rule_attrs.ipa_post_processor_attrs(),
         rule_attrs.locales_to_include_attrs(),
         rule_attrs.platform_attrs(
@@ -3032,7 +3034,9 @@ However, iOS 14 introduced Widget Extensions that use a traditional `main` entry
             is_mandatory = True,
         ),
         rule_attrs.extensionkit_attrs(),
-        rule_attrs.infoplist_attrs(),
+        rule_attrs.infoplist_attrs(
+            default_infoplist = rule_attrs.defaults.default_infoplist,
+        ),
         rule_attrs.ipa_post_processor_attrs(),
         rule_attrs.locales_to_include_attrs(),
         rule_attrs.platform_attrs(
@@ -3096,7 +3100,9 @@ of those `ios_application` and/or `ios_extension` rules.""",
             allowed_families = rule_attrs.defaults.allowed_families.ios,
             is_mandatory = True,
         ),
-        rule_attrs.infoplist_attrs(),
+        rule_attrs.infoplist_attrs(
+            default_infoplist = rule_attrs.defaults.default_infoplist,
+        ),
         rule_attrs.ipa_post_processor_attrs(),
         rule_attrs.platform_attrs(
             platform_type = "ios",
@@ -3161,7 +3167,9 @@ ios_dynamic_framework = rule_factory.create_apple_rule(
         rule_attrs.device_family_attrs(
             allowed_families = rule_attrs.defaults.allowed_families.ios,
         ),
-        rule_attrs.infoplist_attrs(),
+        rule_attrs.infoplist_attrs(
+            default_infoplist = rule_attrs.defaults.default_infoplist,
+        ),
         rule_attrs.ipa_post_processor_attrs(),
         rule_attrs.platform_attrs(
             add_environment_plist = True,
@@ -3329,7 +3337,9 @@ for either an iOS iMessage extension or a Sticker Pack extension.""",
             allowed_families = rule_attrs.defaults.allowed_families.ios,
             is_mandatory = True,
         ),
-        rule_attrs.infoplist_attrs(),
+        rule_attrs.infoplist_attrs(
+            default_infoplist = rule_attrs.defaults.default_infoplist,
+        ),
         rule_attrs.ipa_post_processor_attrs(),
         rule_attrs.locales_to_include_attrs(),
         rule_attrs.platform_attrs(
@@ -3378,7 +3388,9 @@ ios_imessage_extension = rule_factory.create_apple_rule(
             allowed_families = rule_attrs.defaults.allowed_families.ios,
             is_mandatory = True,
         ),
-        rule_attrs.infoplist_attrs(),
+        rule_attrs.infoplist_attrs(
+            default_infoplist = rule_attrs.defaults.default_infoplist,
+        ),
         rule_attrs.ipa_post_processor_attrs(),
         rule_attrs.locales_to_include_attrs(),
         rule_attrs.platform_attrs(
@@ -3417,7 +3429,9 @@ ios_sticker_pack_extension = rule_factory.create_apple_rule(
             allowed_families = rule_attrs.defaults.allowed_families.ios,
             is_mandatory = True,
         ),
-        rule_attrs.infoplist_attrs(),
+        rule_attrs.infoplist_attrs(
+            default_infoplist = rule_attrs.defaults.default_infoplist,
+        ),
         rule_attrs.ipa_post_processor_attrs(),
         rule_attrs.platform_attrs(
             platform_type = "ios",
@@ -3464,7 +3478,9 @@ ios_kernel_extension = rule_factory.create_apple_rule(
             allowed_families = rule_attrs.defaults.allowed_families.ios,
             is_mandatory = False,
         ),
-        rule_attrs.infoplist_attrs(),
+        rule_attrs.infoplist_attrs(
+            default_infoplist = rule_attrs.defaults.default_infoplist,
+        ),
         rule_attrs.ipa_post_processor_attrs(),
         rule_attrs.platform_attrs(
             add_environment_plist = True,

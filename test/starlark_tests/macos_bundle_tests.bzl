@@ -19,6 +19,10 @@ load(
     "analysis_output_group_info_files_test",
 )
 load(
+    "//test/starlark_tests/rules:analysis_target_outputs_test.bzl",
+    "analysis_target_tree_artifacts_outputs_test",
+)
+load(
     "//test/starlark_tests/rules:apple_dsym_bundle_info_test.bzl",
     "apple_dsym_bundle_info_test",
 )
@@ -176,6 +180,25 @@ def macos_bundle_test_suite(name):
         target_under_test = "//test/starlark_tests/targets_under_test/macos:bundle_with_capability_set_derived_bundle_id",
         expected_values = {
             "CFBundleIdentifier": "com.bazel.app.example.bundle-with-capability-set-derived-bundle-id",
+        },
+        tags = [name],
+    )
+
+    # Test that macos_bundle works without explicit infoplists
+    analysis_target_tree_artifacts_outputs_test(
+        name = "{}_no_infoplist_builds_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/macos:bundle_minimal_no_infoplist",
+        expected_outputs = ["bundle_minimal_no_infoplist.bundle"],
+        tags = [name],
+    )
+
+    infoplist_contents_test(
+        name = "{}_no_infoplist_has_default_values_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/macos:bundle_minimal_no_infoplist",
+        expected_values = {
+            "CFBundleIdentifier": "com.google.example",
+            "CFBundleName": "bundle_minimal_no_infoplist",
+            "CFBundlePackageType": "BNDL",
         },
         tags = [name],
     )

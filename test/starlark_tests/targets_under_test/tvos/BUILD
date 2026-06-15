@@ -121,6 +121,17 @@ tvos_extension(
     ],
 )
 
+tvos_extension(
+    name = "ext_minimal_no_infoplist",
+    bundle_id = "com.google.example.ext",
+    minimum_os_version = common.min_os_tvos.baseline,
+    provisioning_profile = "//test/testdata/provisioning:integration_testing_ios.mobileprovision",
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources:objc_main_lib",
+    ],
+)
+
 tvos_application(
     name = "app_with_swift_ext",
     bundle_id = "com.google.example",
@@ -531,6 +542,27 @@ tvos_framework(
     tags = common.fixture_tags,
     deps = [
         "//test/starlark_tests/resources:objc_shared_lib",
+    ],
+)
+
+tvos_framework(
+    name = "fmwk_minimal_no_infoplist",
+    bundle_id = "com.google.example.framework",
+    minimum_os_version = common.min_os_tvos.baseline,
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources:objc_shared_lib",
+    ],
+)
+
+tvos_dynamic_framework(
+    name = "dynamic_fmwk_minimal_no_infoplist",
+    bundle_id = "com.google.example.framework",
+    bundle_name = "swift_shared_lib",
+    minimum_os_version = common.min_os_tvos.baseline,
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources:swift_shared_lib",
     ],
 )
 

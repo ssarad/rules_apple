@@ -19,6 +19,10 @@ load(
     "analysis_output_group_info_files_test",
 )
 load(
+    "//test/starlark_tests/rules:analysis_target_outputs_test.bzl",
+    "analysis_target_tree_artifacts_outputs_test",
+)
+load(
     "//test/starlark_tests/rules:apple_dsym_bundle_info_test.bzl",
     "apple_dsym_bundle_info_test",
 )
@@ -338,6 +342,25 @@ def ios_extension_test_suite(name):
         target_under_test = "//test/starlark_tests/targets_under_test/ios:app_with_extensionkit_ext",
         contains = ["$BUNDLE_ROOT/Extensions/extensionkit_ext.appex/extensionkit_ext"],
         not_contains = ["$BUNDLE_ROOT/PlugIns/extensionkit_ext.appex/extensionkit_ext"],
+        tags = [name],
+    )
+
+    # Test that ios_extension works without explicit infoplists
+    analysis_target_tree_artifacts_outputs_test(
+        name = "{}_no_infoplist_builds_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/ios:ext_minimal_no_infoplist",
+        expected_outputs = ["ext_minimal_no_infoplist.appex"],
+        tags = [name],
+    )
+
+    infoplist_contents_test(
+        name = "{}_no_infoplist_has_default_values_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/ios:ext_minimal_no_infoplist",
+        expected_values = {
+            "CFBundleIdentifier": "com.google.example.ext",
+            "CFBundleName": "ext_minimal_no_infoplist",
+            "CFBundlePackageType": "XPC!",
+        },
         tags = [name],
     )
 

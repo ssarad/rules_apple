@@ -19,6 +19,10 @@ load(
     "analysis_output_group_info_files_test",
 )
 load(
+    "//test/starlark_tests/rules:analysis_target_outputs_test.bzl",
+    "analysis_target_tree_artifacts_outputs_test",
+)
+load(
     "//test/starlark_tests/rules:apple_dsym_bundle_info_test.bzl",
     "apple_dsym_bundle_info_test",
 )
@@ -236,6 +240,25 @@ def ios_app_clip_test_suite(name):
         contains = [
             "$BUNDLE_ROOT/PlugIns/swift_ios_app_clip_ext.appex/swift_ios_app_clip_ext",
         ],
+        tags = [name],
+    )
+
+    # Test that ios_app_clip works without explicit infoplists
+    analysis_target_tree_artifacts_outputs_test(
+        name = "{}_no_infoplist_builds_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/ios:app_clip_minimal_no_infoplist",
+        expected_outputs = ["app_clip_minimal_no_infoplist.app"],
+        tags = [name],
+    )
+
+    infoplist_contents_test(
+        name = "{}_no_infoplist_has_default_values_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/ios:app_clip_minimal_no_infoplist",
+        expected_values = {
+            "CFBundleIdentifier": "com.google.example.clip",
+            "CFBundleName": "app_clip_minimal_no_infoplist",
+            "CFBundlePackageType": "APPL",
+        },
         tags = [name],
     )
 

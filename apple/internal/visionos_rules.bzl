@@ -1569,7 +1569,9 @@ visionos_dynamic_framework = rule_factory.create_apple_rule(
         rule_attrs.device_family_attrs(
             allowed_families = rule_attrs.defaults.allowed_families.visionos,
         ),
-        rule_attrs.infoplist_attrs(),
+        rule_attrs.infoplist_attrs(
+            default_infoplist = rule_attrs.defaults.default_infoplist,
+        ),
         rule_attrs.ipa_post_processor_attrs(),
         rule_attrs.platform_attrs(
             add_environment_plist = True,
@@ -1632,7 +1634,9 @@ visionos_extension = rule_factory.create_apple_rule(
             allowed_families = rule_attrs.defaults.allowed_families.visionos,
         ),
         rule_attrs.extensionkit_attrs(),
-        rule_attrs.infoplist_attrs(),
+        rule_attrs.infoplist_attrs(
+            default_infoplist = rule_attrs.defaults.default_infoplist,
+        ),
         rule_attrs.locales_to_include_attrs(),
         rule_attrs.platform_attrs(
             add_environment_plist = True,
@@ -1679,7 +1683,9 @@ To use this framework for your app and extensions, list it in the frameworks att
         rule_attrs.device_family_attrs(
             allowed_families = rule_attrs.defaults.allowed_families.visionos,
         ),
-        rule_attrs.infoplist_attrs(),
+        rule_attrs.infoplist_attrs(
+            default_infoplist = rule_attrs.defaults.default_infoplist,
+        ),
         rule_attrs.ipa_post_processor_attrs(),
         rule_attrs.platform_attrs(
             add_environment_plist = True,

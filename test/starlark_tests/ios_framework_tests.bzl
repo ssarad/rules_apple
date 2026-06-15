@@ -23,6 +23,10 @@ load(
     "analysis_output_group_info_files_test",
 )
 load(
+    "//test/starlark_tests/rules:analysis_target_outputs_test.bzl",
+    "analysis_target_tree_artifacts_outputs_test",
+)
+load(
     "//test/starlark_tests/rules:apple_dsym_bundle_info_test.bzl",
     "apple_dsym_bundle_info_test",
 )
@@ -698,6 +702,25 @@ Error: Found a `bundle_id` provided with `base_bundle_id`. This is ambiguous.
 
 Please remove one of the two from your rule definition.
 """,
+        tags = [name],
+    )
+
+    # Test that ios_framework works without explicit infoplists
+    analysis_target_tree_artifacts_outputs_test(
+        name = "{}_no_infoplist_builds_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/ios:fmwk_minimal_no_infoplist",
+        expected_outputs = ["fmwk_minimal_no_infoplist.framework"],
+        tags = [name],
+    )
+
+    infoplist_contents_test(
+        name = "{}_no_infoplist_has_default_values_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/ios:fmwk_minimal_no_infoplist",
+        expected_values = {
+            "CFBundleIdentifier": "com.google.example.framework",
+            "CFBundleName": "fmwk_minimal_no_infoplist",
+            "CFBundlePackageType": "FMWK",
+        },
         tags = [name],
     )
 

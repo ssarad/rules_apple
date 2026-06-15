@@ -19,6 +19,10 @@ load(
     "analysis_failure_message_test",
 )
 load(
+    "//test/starlark_tests/rules:analysis_target_outputs_test.bzl",
+    "analysis_target_tree_artifacts_outputs_test",
+)
+load(
     "//test/starlark_tests/rules:common_verification_tests.bzl",
     "archive_contents_test",
 )
@@ -232,6 +236,25 @@ def ios_dynamic_framework_test_suite(name):
         expected_error = """\
     error: Swift dynamic frameworks expect a single swift_library dependency.
     """,
+        tags = [name],
+    )
+
+    # Test that ios_dynamic_framework works without explicit infoplists
+    analysis_target_tree_artifacts_outputs_test(
+        name = "{}_no_infoplist_builds_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/ios:dynamic_fmwk_minimal_no_infoplist",
+        expected_outputs = ["dynamic_fmwk_minimal_no_infoplist.framework"],
+        tags = [name],
+    )
+
+    infoplist_contents_test(
+        name = "{}_no_infoplist_has_default_values_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/ios:dynamic_fmwk_minimal_no_infoplist",
+        expected_values = {
+            "CFBundleIdentifier": "com.google.example.framework",
+            "CFBundleName": "dynamic_fmwk_minimal_no_infoplist",
+            "CFBundlePackageType": "FMWK",
+        },
         tags = [name],
     )
 

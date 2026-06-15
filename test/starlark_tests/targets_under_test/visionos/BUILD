@@ -78,3 +78,28 @@ visionos_application(
         "//test/starlark_tests/resources:swift_main_lib",
     ],
 )
+
+# Targets for testing default Info.plist support
+
+load(
+    "//apple:visionos.bzl",
+    "visionos_dynamic_framework",
+    "visionos_framework",
+)
+
+visionos_framework(
+    name = "fmwk_minimal_no_infoplist",
+    bundle_id = "com.google.example.framework",
+    minimum_os_version = common.min_os_visionos.baseline,
+    tags = common.fixture_tags,
+    deps = ["//test/starlark_tests/resources:objc_shared_lib"],
+)
+
+visionos_dynamic_framework(
+    name = "dynamic_fmwk_minimal_no_infoplist",
+    bundle_id = "com.google.example.framework",
+    bundle_name = "swift_shared_lib",
+    minimum_os_version = common.min_os_visionos.baseline,
+    tags = common.fixture_tags,
+    deps = ["//test/starlark_tests/resources:swift_shared_lib"],
+)

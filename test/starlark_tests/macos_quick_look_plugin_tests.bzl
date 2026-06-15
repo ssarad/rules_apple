@@ -15,6 +15,10 @@
 """macos_quick_look_plugin Starlark tests."""
 
 load(
+    "//test/starlark_tests/rules:analysis_target_outputs_test.bzl",
+    "analysis_target_tree_artifacts_outputs_test",
+)
+load(
     "//test/starlark_tests/rules:apple_verification_test.bzl",
     "apple_verification_test",
 )
@@ -121,6 +125,25 @@ def macos_quick_look_plugin_test_suite(name):
         target_under_test = "//test/starlark_tests/targets_under_test/macos:ql_plugin_with_capability_set_derived_bundle_id",
         expected_values = {
             "CFBundleIdentifier": "com.bazel.app.example",
+        },
+        tags = [name],
+    )
+
+    # Test that macos_quick_look_plugin works without explicit infoplists
+    analysis_target_tree_artifacts_outputs_test(
+        name = "{}_no_infoplist_builds_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/macos:ql_plugin_minimal_no_infoplist",
+        expected_outputs = ["ql_plugin_minimal_no_infoplist.qlgenerator"],
+        tags = [name],
+    )
+
+    infoplist_contents_test(
+        name = "{}_no_infoplist_has_default_values_test".format(name),
+        target_under_test = "//test/starlark_tests/targets_under_test/macos:ql_plugin_minimal_no_infoplist",
+        expected_values = {
+            "CFBundleIdentifier": "com.google.example",
+            "CFBundleName": "ql_plugin_minimal_no_infoplist",
+            "CFBundlePackageType": "XPC!",
         },
         tags = [name],
     )

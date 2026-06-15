@@ -763,6 +763,16 @@ macos_extension(
     ],
 )
 
+macos_extension(
+    name = "ext_minimal_no_infoplist",
+    bundle_id = "com.google.example.ext",
+    minimum_os_version = common.min_os_macos.baseline,
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources:objc_main_lib",
+    ],
+)
+
 objc_library(
     name = "objc_lib_with_nested_macos_framework",
     srcs = [
@@ -931,6 +941,26 @@ macos_framework(
     tags = common.fixture_tags,
     deps = [
         ":fmwk_lib",
+    ],
+)
+
+macos_framework(
+    name = "fmwk_minimal_no_infoplist",
+    bundle_id = "com.google.example.framework",
+    minimum_os_version = common.min_os_macos.baseline,
+    tags = common.fixture_tags,
+    deps = [
+        ":fmwk_lib",
+    ],
+)
+
+macos_dynamic_framework(
+    name = "dynamic_fmwk_minimal_no_infoplist",
+    bundle_id = "com.google.example.framework",
+    minimum_os_version = common.min_os_macos.baseline,
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources:swift_shared_lib",
     ],
 )
 
@@ -2453,6 +2483,16 @@ macos_bundle(
 )
 
 macos_bundle(
+    name = "bundle_minimal_no_infoplist",
+    bundle_id = "com.google.example",
+    minimum_os_version = common.min_os_macos.baseline,
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources:objc_shared_lib",
+    ],
+)
+
+macos_bundle(
     name = "bundle_with_different_extension",
     bundle_extension = "prefPane",
     bundle_id = "com.google.example",
@@ -2605,6 +2645,16 @@ macos_kernel_extension(
 )
 
 macos_kernel_extension(
+    name = "kext_minimal_no_infoplist",
+    bundle_id = "com.google.kext",
+    minimum_os_version = common.min_os_macos.baseline,
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources/kext_resources:kext_lib",
+    ],
+)
+
+macos_kernel_extension(
     name = "kext_with_entitlements",
     bundle_id = "com.google.kext",
     entitlements = "//test/starlark_tests/resources:entitlements.plist",
@@ -2649,6 +2699,16 @@ macos_quick_look_plugin(
     infoplists = [
         "//test/starlark_tests/resources:Info.plist",
     ],
+    minimum_os_version = common.min_os_macos.baseline,
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources:objc_main_lib",
+    ],
+)
+
+macos_quick_look_plugin(
+    name = "ql_plugin_minimal_no_infoplist",
+    bundle_id = "com.google.example",
     minimum_os_version = common.min_os_macos.baseline,
     tags = common.fixture_tags,
     deps = [

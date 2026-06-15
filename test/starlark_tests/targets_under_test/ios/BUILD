@@ -1140,6 +1140,34 @@ ios_framework(
     ],
 )
 
+ios_framework(
+    name = "fmwk_minimal_no_infoplist",
+    bundle_id = "com.google.example.framework",
+    families = [
+        "iphone",
+        "ipad",
+    ],
+    minimum_os_version = common.min_os_ios.baseline,
+    tags = common.fixture_tags,
+    deps = [
+        ":fmwk_lib",
+    ],
+)
+
+ios_dynamic_framework(
+    name = "dynamic_fmwk_minimal_no_infoplist",
+    bundle_id = "com.google.example.framework",
+    families = [
+        "iphone",
+        "ipad",
+    ],
+    minimum_os_version = common.min_os_ios.baseline,
+    tags = common.fixture_tags,
+    deps = [
+        ":fmwk_lib",
+    ],
+)
+
 objc_library(
     name = "fmwk_lib",
     srcs = [
@@ -1212,6 +1240,18 @@ ios_app_clip(
     infoplists = [
         "//test/starlark_tests/resources:Info.plist",
     ],
+    minimum_os_version = common.min_os_ios.appclip_support,
+    provisioning_profile = "//test/testdata/provisioning:integration_testing_ios.mobileprovision",
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources:objc_main_lib",
+    ],
+)
+
+ios_app_clip(
+    name = "app_clip_minimal_no_infoplist",
+    bundle_id = "com.google.example.clip",
+    families = ["iphone"],
     minimum_os_version = common.min_os_ios.appclip_support,
     provisioning_profile = "//test/testdata/provisioning:integration_testing_ios.mobileprovision",
     tags = common.fixture_tags,
@@ -1748,6 +1788,21 @@ ios_extension(
     ],
     infoplists = [
         "//test/starlark_tests/resources:Info.plist",
+    ],
+    minimum_os_version = common.min_os_ios.baseline,
+    provisioning_profile = "//test/testdata/provisioning:integration_testing_ios.mobileprovision",
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources:objc_main_lib",
+    ],
+)
+
+ios_extension(
+    name = "ext_minimal_no_infoplist",
+    bundle_id = "com.google.example.ext",
+    families = [
+        "iphone",
+        "ipad",
     ],
     minimum_os_version = common.min_os_ios.baseline,
     provisioning_profile = "//test/testdata/provisioning:integration_testing_ios.mobileprovision",
@@ -3568,6 +3623,48 @@ ios_sticker_pack_extension(
     minimum_os_version = common.min_os_ios.baseline,
     provisioning_profile = "//test/testdata/provisioning:integration_testing_ios.mobileprovision",
     sticker_assets = [],
+    tags = common.fixture_tags,
+)
+
+ios_sticker_pack_extension(
+    name = "sticker_ext_minimal_no_infoplist",
+    bundle_id = "com.google.example.stickerext",
+    families = [
+        "iphone",
+        "ipad",
+    ],
+    minimum_os_version = common.min_os_ios.baseline,
+    provisioning_profile = "//test/testdata/provisioning:integration_testing_ios.mobileprovision",
+    sticker_assets = [],
+    tags = common.fixture_tags,
+)
+
+ios_imessage_extension(
+    name = "imessage_ext_minimal_no_infoplist",
+    app_icons = ["//test/testdata/resources:message_ext_app_icon_ios"],
+    bundle_id = "com.google.example.MessagesExtension",
+    families = [
+        "iphone",
+        "ipad",
+    ],
+    minimum_os_version = common.min_os_ios.baseline,
+    provisioning_profile = "//test/testdata/provisioning:integration_testing_ios.mobileprovision",
+    tags = common.fixture_tags,
+    deps = [
+        "//test/starlark_tests/resources:objc_test_lib",
+    ],
+)
+
+ios_imessage_application(
+    name = "imessage_app_minimal_no_infoplist",
+    bundle_id = "com.google.example",
+    extension = ":imessage_ext_minimal_no_infoplist",
+    families = [
+        "iphone",
+        "ipad",
+    ],
+    minimum_os_version = common.min_os_ios.baseline,
+    provisioning_profile = "//test/testdata/provisioning:integration_testing_ios.mobileprovision",
     tags = common.fixture_tags,
 )
 
